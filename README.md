@@ -10,7 +10,7 @@ Built for [Squad Hackathon 3.0](https://squadco.com) — Challenge 01: *"Proof o
 
 Millions of naira move through group funds, crowdfunding campaigns, NGOs, and community projects every day — with no way to verify where the money actually goes.
 
-From the VDM NGO scandal to jersey fraud on X, contributors are forced to trust blindly. TRACE fixes that.
+From the VDM NGO scandal, to Abazz's jersey fraud on X, contributors are forced to trust blindly. TRACE fixes that.
 
 ---
 
@@ -83,62 +83,62 @@ TRACE/
 │   │
 │   └── assets/
 │       ├── css/
-│       │   ├── main.css            # CSS variables, global resets, fonts
-│       │   └── animations.css      # keyframes, transitions, loaders
+│       │   ├── main.css 
+│       │   └── animations.css
 │       ├── js/
-│       │   ├── auth.js             # signup, login, email verify, @username
-│       │   ├── home.js             # feed, saved campaigns, activity
-│       │   ├── profile.js          # contributor history, created campaigns
-│       │   ├── search.js           # search/filter campaigns
-│       │   ├── campaign.js         # campaign view, donate, trust feed
-│       │   └── verify.js           # cryptographic signature check
+│       │   ├── auth.js 
+│       │   ├── home.js
+│       │   ├── profile.js
+│       │   ├── search.js
+│       │   ├── campaign.js
+│       │   └── verify.js 
 │       └── img/
-│           ├── logo.svg            # owl eye mark
-│           ├── logo-full.svg       # owl eye + TRACE wordmark
+│           ├── logo.svg 
+│           ├── logo-full.svg 
 │           └── favicon.ico
 │
 ├── backend/
 │   ├── server.js
 │   │
 │   ├── routes/
-│   │   ├── auth.js                 # signup, login, email verify, username
-│   │   ├── campaigns.js            # create, fetch, update campaigns
-│   │   ├── transactions.js         # log, fetch, score transactions
-│   │   ├── webhooks.js             # Squad payment webhook receiver
-│   │   ├── verify.js               # signature verification endpoint
-│   │   └── users.js                # profile, @username, contribution history
+│   │   ├── auth.js
+│   │   ├── campaigns.js
+│   │   ├── transactions.js
+│   │   ├── webhooks.js
+│   │   ├── verify.js  
+│   │   └── users.js 
 │   │
 │   ├── services/
-│   │   ├── squadService.js         # Squad API — payments, webhooks
-│   │   ├── signingService.js       # HMAC-SHA256 sign + verify
-│   │   ├── anomalyService.js       # calls Python AI model API
-│   │   ├── explanationService.js   # OpenAI plain-language output
-│   │   └── mailService.js          # email verification sender
+│   │   ├── squadService.js 
+│   │   ├── signingService.js 
+│   │   ├── anomalyService.js
+│   │   ├── explanationService.js
+│   │   └── mailService.js
 │   │
 │   ├── middleware/
-│   │   ├── auth.js                 # JWT verification
-│   │   └── rateLimit.js            # prevent abuse on donation endpoints
+│   │   ├── auth.js
+│   │   └── rateLimit.js
 │   │
 │   └── config/
-│       ├── supabase.js             # Supabase client init
-│       └── env.js                  # environment variable validation
+│       ├── supabase.js
+│       └── env.js
 │
 ├── ai/
-│   ├── api.py                      # FastAPI — exposes /score endpoint
+│   ├── api.py
 │   │
 │   ├── model/
-│   │   ├── train.py                # IsolationForest training script
-│   │   ├── predict.py              # scoring logic
-│   │   ├── features.py             # feature engineering (velocity, deviation etc)
-│   │   └── trace_model.pkl         # saved trained model
+│   │   ├── train.py
+│   │   ├── predict.py
+│   │   ├── features.py 
+│   │   └── trace_model.pkl 
 │   │
 │   └── data/
 │       └── synthetic_transactions.csv
 │
 ├── docs/
 │   ├── architecture.md
-│   ├── api.md                      # endpoint reference
-│   └── trust-layer.md              # how signing works, explained
+│   ├── api.md
+│   └── trust-layer.md
 │
 ├── .env.example
 ├── .gitignore
@@ -160,7 +160,7 @@ TRACE/
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/TRACE.git
+git clone https://github.com/dxbolaji/KR38S.git
 cd TRACE
 
 # Install backend dependencies
@@ -229,10 +229,11 @@ No blockchain required. Tamper-evident by design.
 
 ## Team
 
-> Adeniran Abdurrahman,
-Adesola Jibola,
-Emenike Prosper-Beales,
-Adetumbi Favour.
+> 
+- Adeniran Abdurrahman, DX
+- Adeshola Jibola
+- Emenike Prosper-Beales
+- Adetunmbi Favour, Dray
 
 ---
 
