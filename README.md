@@ -188,7 +188,10 @@ No blockchain required. Tamper-evident by design.
 
 ## Team
 
-> *Add your team members here*
+> Adeniran Abdurrahman, DX
+> Adesola Jibola
+> Emenike Prosper-Beales
+> Adetumbi Favour, Dray.
 
 ---
 
