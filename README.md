@@ -66,43 +66,84 @@ Contributor verifies independently via shareable link
 
 ```
 TRACE/
+│
 ├── frontend/
-│   ├── index.html
-│   ├── dashboard.html
-│   ├── campaign.html
-│   ├── verify.html
+│   ├── landing.html
+│   │
+│   ├── auth/
+│   │   ├── signup.html
+│   │   ├── verify.html
+│   │   └── login.html
+│   │
+│   ├── app/
+│   │   ├── home.html
+│   │   ├── profile.html
+│   │   ├── search.html
+│   │   └── campaign.html
+│   │
 │   └── assets/
 │       ├── css/
-│       └── js/
+│       │   ├── main.css            # CSS variables, global resets, fonts
+│       │   └── animations.css      # keyframes, transitions, loaders
+│       ├── js/
+│       │   ├── auth.js             # signup, login, email verify, @username
+│       │   ├── home.js             # feed, saved campaigns, activity
+│       │   ├── profile.js          # contributor history, created campaigns
+│       │   ├── search.js           # search/filter campaigns
+│       │   ├── campaign.js         # campaign view, donate, trust feed
+│       │   └── verify.js           # cryptographic signature check
+│       └── img/
+│           ├── logo.svg            # owl eye mark
+│           ├── logo-full.svg       # owl eye + TRACE wordmark
+│           └── favicon.ico
 │
 ├── backend/
 │   ├── server.js
+│   │
 │   ├── routes/
-│   │   ├── campaigns.js
-│   │   ├── transactions.js
-│   │   ├── webhooks.js
-│   │   └── verify.js
+│   │   ├── auth.js                 # signup, login, email verify, username
+│   │   ├── campaigns.js            # create, fetch, update campaigns
+│   │   ├── transactions.js         # log, fetch, score transactions
+│   │   ├── webhooks.js             # Squad payment webhook receiver
+│   │   ├── verify.js               # signature verification endpoint
+│   │   └── users.js                # profile, @username, contribution history
+│   │
 │   ├── services/
-│   │   ├── squadService.js
-│   │   ├── signingService.js
-│   │   ├── anomalyService.js
-│   │   └── explanationService.js
-│   └── middleware/
-│       └── auth.js
+│   │   ├── squadService.js         # Squad API — payments, webhooks
+│   │   ├── signingService.js       # HMAC-SHA256 sign + verify
+│   │   ├── anomalyService.js       # calls Python AI model API
+│   │   ├── explanationService.js   # OpenAI plain-language output
+│   │   └── mailService.js          # email verification sender
+│   │
+│   ├── middleware/
+│   │   ├── auth.js                 # JWT verification
+│   │   └── rateLimit.js            # prevent abuse on donation endpoints
+│   │
+│   └── config/
+│       ├── supabase.js             # Supabase client init
+│       └── env.js                  # environment variable validation
 │
 ├── ai/
+│   ├── api.py                      # FastAPI — exposes /score endpoint
+│   │
 │   ├── model/
-│   │   ├── train.py
-│   │   ├── predict.py
-│   │   └── features.py
-│   ├── api.py
+│   │   ├── train.py                # IsolationForest training script
+│   │   ├── predict.py              # scoring logic
+│   │   ├── features.py             # feature engineering (velocity, deviation etc)
+│   │   └── trace_model.pkl         # saved trained model
+│   │
 │   └── data/
 │       └── synthetic_transactions.csv
 │
 ├── docs/
-│   └── architecture.md
+│   ├── architecture.md
+│   ├── api.md                      # endpoint reference
+│   └── trust-layer.md              # how signing works, explained
 │
-└── README.md
+├── .env.example
+├── .gitignore
+├── README.md
+└── package.json
 ```
 
 ---
