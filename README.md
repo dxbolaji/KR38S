@@ -32,6 +32,10 @@ TRACE is an AI-powered fundraising and financial intelligence platform that give
 
 ## How It Works
 
+---
+
+## How It Works
+
 ```
 Contributor donates via Squad API
         ↓
@@ -52,9 +56,10 @@ Contributor verifies independently via shareable link
 
 | Layer | Technology |
 |---|---|
-| Frontend | HTML, Tailwind CSS |
-| Backend | Node.js / FastAPI |
-| Database | Supabase |
+| Frontend | React + TanStack Start (TypeScript), Tailwind CSS |
+| Backend | Node.js / Express |
+| Database | Supabase (PostgreSQL) |
+| Auth | Supabase Auth |
 | Payments | Squad API |
 | Anomaly Detection | IsolationForest (Python, scikit-learn) |
 | AI Explanations | OpenAI API |
@@ -67,71 +72,46 @@ Contributor verifies independently via shareable link
 ```
 TRACE/
 │
-├── frontend/
-│   ├── landing.html
-│   │
-│   ├── auth/
-│   │   ├── signup.html
-│   │   ├── verify.html
-│   │   └── login.html
-│   │
-│   ├── app/
-│   │   ├── home.html
-│   │   ├── profile.html
-│   │   ├── search.html
-│   │   └── campaign.html
-│   │
-│   └── assets/
-│       ├── css/
-│       │   ├── main.css 
-│       │   └── animations.css
-│       ├── js/
-│       │   ├── auth.js 
-│       │   ├── home.js
-│       │   ├── profile.js
-│       │   ├── search.js
-│       │   ├── campaign.js
-│       │   └── verify.js 
-│       └── img/
-│           ├── logo.svg 
-│           ├── logo-full.svg 
-│           └── favicon.ico
+├── frontend/                  # React + TanStack Start
+│   ├── src/
+│   │   ├── components/        # Shared UI components
+│   │   ├── routes/            # Page routes
+│   │   ├── lib/               # Campaign data, utilities
+│   │   ├── hooks/             # Custom React hooks
+│   │   └── integrations/      # Supabase client
+│   ├── public/
+│   │   └── assets/img/        # Logo and favicon
+│   └── supabase/              # Supabase config
 │
 ├── backend/
 │   ├── server.js
-│   │
 │   ├── routes/
 │   │   ├── auth.js
 │   │   ├── campaigns.js
 │   │   ├── transactions.js
 │   │   ├── webhooks.js
-│   │   ├── verify.js  
-│   │   └── users.js 
-│   │
+│   │   ├── verify.js
+│   │   └── users.js
 │   ├── services/
-│   │   ├── squadService.js 
-│   │   ├── signingService.js 
+│   │   ├── squadService.js
+│   │   ├── signingService.js
 │   │   ├── anomalyService.js
 │   │   ├── explanationService.js
 │   │   └── mailService.js
-│   │
 │   ├── middleware/
 │   │   ├── auth.js
 │   │   └── rateLimit.js
-│   │
 │   └── config/
 │       ├── supabase.js
 │       └── env.js
 │
 ├── ai/
 │   ├── api.py
-│   │
 │   ├── model/
 │   │   ├── train.py
 │   │   ├── predict.py
-│   │   ├── features.py 
-│   │   └── trace_model.pkl 
-│   │
+│   │   ├── features.py
+│   │   └── trace_model.pkl
 │   └── data/
 │       └── synthetic_transactions.csv
 │
@@ -142,8 +122,7 @@ TRACE/
 │
 ├── .env.example
 ├── .gitignore
-├── README.md
-└── package.json
+└── README.md
 ```
 
 ---
@@ -156,27 +135,45 @@ TRACE/
 - Supabase account
 - Squad API credentials
 
-### Installation
+### Frontend
 
 ```bash
-# Clone the repo
-git clone https://github.com/dxbolaji/KR38S.git
-cd TRACE
-
-# Install backend dependencies
-cd backend
+cd frontend
 npm install
-
-# Install AI dependencies
-cd ../ai
-pip install -r requirements.txt
-
-# Set environment variables
-cp .env.example .env
-# Add your Squad API key, Supabase URL, OpenAI key, and SIGNING_SECRET
+npm run dev
 ```
 
-### Environment Variables
+Opens at `http://localhost:8080`
+
+### Frontend Environment Variables
+
+Create a `.env` file inside `frontend/`:
+
+```env
+SUPABASE_URL=your_supabase_url
+SUPABASE_PUBLISHABLE_KEY=your_anon_key
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_anon_key
+VITE_SUPABASE_PROJECT_ID=your_project_id
+```
+
+### Backend *(in progress)*
+
+```bash
+cd backend
+npm install
+node server.js
+```
+
+### AI Layer *(in progress)*
+
+```bash
+cd ai
+pip install -r requirements.txt
+uvicorn api:app --reload
+```
+
+### Backend Environment Variables
 
 ```env
 SQUAD_SECRET_KEY=your_squad_secret
@@ -184,19 +181,6 @@ SUPABASE_URL=your_supabase_url
 SUPABASE_KEY=your_supabase_anon_key
 OPENAI_API_KEY=your_openai_key
 SIGNING_SECRET=your_long_random_signing_secret
-```
-
-### Run
-
-```bash
-# Start backend
-cd backend && node server.js
-
-# Start AI model API
-cd ai && uvicorn api:app --reload
-
-# Open frontend
-open frontend/index.html
 ```
 
 ---
@@ -208,6 +192,17 @@ Every transaction on TRACE is signed at the moment it occurs using HMAC-SHA256. 
 If anyone alters a transaction record after the fact, the signature breaks. TRACE detects it immediately and flags the record.
 
 No blockchain required. Tamper-evident by design.
+
+---
+
+## Build Status
+
+- [x] Frontend — complete
+- [ ] Backend — in progress
+- [ ] AI layer — in progress
+- [ ] Payment integration (Squad) — pending
+- [ ] Cryptographic signing — pending
+- [ ] Deployment — pending
 
 ---
 
@@ -229,7 +224,6 @@ No blockchain required. Tamper-evident by design.
 
 ## Team
 
-> 
 - Adeniran Abdurrahman, DX
 - Adeshola Jibola
 - Emenike Prosper-Beales
@@ -238,5 +232,4 @@ No blockchain required. Tamper-evident by design.
 ---
 
 ## License
-
-MIT
+Private — All rights reserved

@@ -1,0 +1,10 @@
+{
+    "name": "trace",
+    "version": "1.0.0",
+    "description": "TRACE — Transparent Real-time AI Chain Engine",
+    "private": true,
+    "workspaces": [
+      "frontend",
+      "backend"
+    ]
+  }
