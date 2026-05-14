@@ -14,16 +14,294 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      campaign_documents: {
+        Row: {
+          campaign_id: string | null
+          file_type: string | null
+          file_url: string
+          id: string
+          uploaded_at: string | null
+        }
+        Insert: {
+          campaign_id?: string | null
+          file_type?: string | null
+          file_url: string
+          id?: string
+          uploaded_at?: string | null
+        }
+        Update: {
+          campaign_id?: string | null
+          file_type?: string | null
+          file_url?: string
+          id?: string
+          uploaded_at?: string | null
+        }
+        Relationships: []
+      }
+      campaigns: {
+        Row: {
+          beneficiary_account_name: string | null
+          beneficiary_account_no: string | null
+          beneficiary_bank_code: string | null
+          category: Database["public"]["Enums"]["campaign_category"]
+          created_at: string
+          description: string
+          end_date: string | null
+          goal: number
+          id: string
+          name: string
+          org: string
+          owner_id: string
+          raised: number
+          social_link: string | null
+          squad_bank: string | null
+          squad_customer_id: string | null
+          squad_virtual_account_no: string | null
+          status: Database["public"]["Enums"]["campaign_status"]
+          trust_level: Database["public"]["Enums"]["trust_level"]
+          trust_score: number
+          updated_at: string
+          wallet_address: string | null
+        }
+        Insert: {
+          beneficiary_account_name?: string | null
+          beneficiary_account_no?: string | null
+          beneficiary_bank_code?: string | null
+          category?: Database["public"]["Enums"]["campaign_category"]
+          created_at?: string
+          description: string
+          end_date?: string | null
+          goal: number
+          id?: string
+          name: string
+          org: string
+          owner_id: string
+          raised?: number
+          social_link?: string | null
+          squad_bank?: string | null
+          squad_customer_id?: string | null
+          squad_virtual_account_no?: string | null
+          status?: Database["public"]["Enums"]["campaign_status"]
+          trust_level?: Database["public"]["Enums"]["trust_level"]
+          trust_score?: number
+          updated_at?: string
+          wallet_address?: string | null
+        }
+        Update: {
+          beneficiary_account_name?: string | null
+          beneficiary_account_no?: string | null
+          beneficiary_bank_code?: string | null
+          category?: Database["public"]["Enums"]["campaign_category"]
+          created_at?: string
+          description?: string
+          end_date?: string | null
+          goal?: number
+          id?: string
+          name?: string
+          org?: string
+          owner_id?: string
+          raised?: number
+          social_link?: string | null
+          squad_bank?: string | null
+          squad_customer_id?: string | null
+          squad_virtual_account_no?: string | null
+          status?: Database["public"]["Enums"]["campaign_status"]
+          trust_level?: Database["public"]["Enums"]["trust_level"]
+          trust_score?: number
+          updated_at?: string
+          wallet_address?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaigns_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ledger_entries: {
+        Row: {
+          ai_explanation: string | null
+          amount: number
+          campaign_id: string
+          created_at: string
+          id: string
+          label: string | null
+          nip_ref: string | null
+          signature: string
+          transaction_id: string
+          trust_level: Database["public"]["Enums"]["trust_level"]
+          trust_score: number | null
+          type: Database["public"]["Enums"]["transaction_type"]
+        }
+        Insert: {
+          ai_explanation?: string | null
+          amount: number
+          campaign_id: string
+          created_at?: string
+          id?: string
+          label?: string | null
+          nip_ref?: string | null
+          signature: string
+          transaction_id: string
+          trust_level: Database["public"]["Enums"]["trust_level"]
+          trust_score?: number | null
+          type: Database["public"]["Enums"]["transaction_type"]
+        }
+        Update: {
+          ai_explanation?: string | null
+          amount?: number
+          campaign_id?: string
+          created_at?: string
+          id?: string
+          label?: string | null
+          nip_ref?: string | null
+          signature?: string
+          transaction_id?: string
+          trust_level?: Database["public"]["Enums"]["trust_level"]
+          trust_score?: number | null
+          type?: Database["public"]["Enums"]["transaction_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ledger_entries_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ledger_entries_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          ai_explanation: string | null
+          amount: number
+          campaign_id: string
+          created_at: string
+          currency: string
+          donor_id: string | null
+          id: string
+          label: string | null
+          metadata: Json | null
+          signature: string
+          squad_ref: string
+          squad_verified: boolean
+          status: Database["public"]["Enums"]["transaction_status"]
+          trust_level: Database["public"]["Enums"]["trust_level"]
+          trust_score: number | null
+          type: Database["public"]["Enums"]["transaction_type"]
+        }
+        Insert: {
+          ai_explanation?: string | null
+          amount: number
+          campaign_id: string
+          created_at?: string
+          currency?: string
+          donor_id?: string | null
+          id?: string
+          label?: string | null
+          metadata?: Json | null
+          signature: string
+          squad_ref: string
+          squad_verified?: boolean
+          status?: Database["public"]["Enums"]["transaction_status"]
+          trust_level?: Database["public"]["Enums"]["trust_level"]
+          trust_score?: number | null
+          type: Database["public"]["Enums"]["transaction_type"]
+        }
+        Update: {
+          ai_explanation?: string | null
+          amount?: number
+          campaign_id?: string
+          created_at?: string
+          currency?: string
+          donor_id?: string | null
+          id?: string
+          label?: string | null
+          metadata?: Json | null
+          signature?: string
+          squad_ref?: string
+          squad_verified?: boolean
+          status?: Database["public"]["Enums"]["transaction_status"]
+          trust_level?: Database["public"]["Enums"]["trust_level"]
+          trust_score?: number | null
+          type?: Database["public"]["Enums"]["transaction_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_donor_id_fkey"
+            columns: ["donor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      increment_campaign_raised: {
+        Args: { p_amount: number; p_campaign_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      campaign_category:
+        | "medical"
+        | "education"
+        | "relief"
+        | "creative"
+        | "community"
+        | "other"
+      campaign_status: "active" | "completed" | "flagged" | "paused"
+      transaction_status: "pending" | "confirmed" | "failed" | "flagged"
+      transaction_type: "donation" | "withdrawal" | "refund"
+      trust_level: "clean" | "watch" | "suspicious"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +428,19 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      campaign_category: [
+        "medical",
+        "education",
+        "relief",
+        "creative",
+        "community",
+        "other",
+      ],
+      campaign_status: ["active", "completed", "flagged", "paused"],
+      transaction_status: ["pending", "confirmed", "failed", "flagged"],
+      transaction_type: ["donation", "withdrawal", "refund"],
+      trust_level: ["clean", "watch", "suspicious"],
+    },
   },
 } as const
