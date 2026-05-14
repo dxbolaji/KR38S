@@ -30,7 +30,7 @@ function SignupPage() {
     if (Object.keys(errs).length) return setErrors(errs);
 
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -38,10 +38,27 @@ function SignupPage() {
         data: { full_name: fullName, username },
       },
     });
+    if (error) {
+      setLoading(false);
+      return setErrors({ form: error.message });
+    }
+
+    if (data.user) {
+      const { error: profileError } = await (supabase as any)
+        .from('profiles')
+        .insert({
+          id: data.user.id,
+          username,
+          full_name: fullName,
+        });
+      if (profileError && profileError.code !== '23505') {
+        setLoading(false);
+        return setErrors({ form: profileError.message });
+      }
+    }
+
     setLoading(false);
-    if (error) return setErrors({ form: error.message });
-    sessionStorage.setItem("trace_verify_email", email);
-    navigate({ to: "/verify-email" });
+    navigate({ to: "/home" });
   };
 
   return (
