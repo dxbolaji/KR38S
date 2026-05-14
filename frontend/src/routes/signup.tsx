@@ -44,7 +44,7 @@ function SignupPage() {
     }
 
     if (data.user) {
-      const { error: profileError } = await (supabase as any)
+      const { error: profileError } = await supabase
         .from('profiles')
         .insert({
           id: data.user.id,

@@ -28,6 +28,7 @@ import campaignRoutes     from './routes/campaigns.js';
 import transactionRoutes  from './routes/transactions.js';
 import webhookRoutes      from './routes/webhooks.js';
 import verifyRoutes       from './routes/verify.js';
+import { startWeb3Watcher } from './services/web3Service.js';
 
 const app = express();
 
@@ -47,8 +48,6 @@ app.use(globalLimiter);
 app.use(morgan(env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
 // ─── WEBHOOK ROUTE — raw body MUST be registered before express.json() ───────
-// Squad sends a raw body that must be preserved for HMAC-SHA512 validation.
-// If express.json() parses it first, the raw string changes and sig validation fails.
 
 app.use(
   '/api/webhooks',
@@ -76,8 +75,8 @@ app.use('/api/campaigns',    campaignRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/verify',       verifyRoutes);
 
-// Web3 watcher — starts polling TRON blockchain for crypto payments
-const { startWeb3Watcher } = require('./services/web3Service');
+// ─── Web3 watcher — polls TRON blockchain for crypto payments ────────────────
+
 startWeb3Watcher();
 
 // ─── 404 handler ─────────────────────────────────────────────────────────────
