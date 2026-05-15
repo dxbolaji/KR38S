@@ -21,3 +21,8 @@ Thumbs.db
 
 # Lovable metadata
 .lovable/
+
+# AI
+ai/.env
+ai/__pycache__/
+ai/model/__pycache__/
