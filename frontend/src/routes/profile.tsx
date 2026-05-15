@@ -17,13 +17,16 @@ export const Route = createFileRoute("/profile")({
   head: () => ({ meta: [{ title: "Profile — TRACE" }] }),
 });
 
-const myCampaignIds = ["baddy-lasu-first", "baddy-lasu-second"] as const;
+const myCampaignIds = [
+  "fb5799e5-3d2b-4231-b5d7-15694fdcaac6",
+  "0836ab30-0949-4b23-bda0-2f084fb84caa",
+] as const;
 
 const history = [
-  { id: "aunty-esther", amount: 25_000, date: "Apr 28, 2026" },
-  { id: "osimhen-jersey", amount: 10_000, date: "Apr 12, 2026" },
-  { id: "aunty-esther", amount: 15_000, date: "Mar 30, 2026" },
-  { id: "osimhen-jersey", amount: 5_000, date: "Mar 18, 2026" },
+  { id: "97c85343-81da-4233-8d67-e92479f330f5", amount: 25_000, date: "Apr 28, 2026" },
+  { id: "408f966e-e8d8-4ac7-978b-954380b6677c", amount: 10_000, date: "Apr 12, 2026" },
+  { id: "97c85343-81da-4233-8d67-e92479f330f5", amount: 15_000, date: "Mar 30, 2026" },
+  { id: "408f966e-e8d8-4ac7-978b-954380b6677c", amount: 5_000, date: "Mar 18, 2026" },
 ] as const;
 
 function ProfilePage() {
