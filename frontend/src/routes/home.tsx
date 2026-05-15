@@ -18,12 +18,15 @@ export const Route = createFileRoute("/home")({
 });
 
 const activity = [
-  { id: "aunty-esther", amount: 25_000 },
-  { id: "osimhen-jersey", amount: 10_000 },
-  { id: "baddy-lasu-second", amount: 5_000 },
+  { id: "97c85343-81da-4233-8d67-e92479f330f5", amount: 25_000 },
+  { id: "408f966e-e8d8-4ac7-978b-954380b6677c", amount: 10_000 },
+  { id: "0836ab30-0949-4b23-bda0-2f084fb84caa", amount: 5_000 },
 ] as const;
 
-const saved = ["baddy-lasu-first", "aunty-esther"] as const;
+const saved = [
+  "fb5799e5-3d2b-4231-b5d7-15694fdcaac6",
+  "97c85343-81da-4233-8d67-e92479f330f5",
+] as const;
 
 function HomePage() {
   const { user, ready } = useAuthGuard();

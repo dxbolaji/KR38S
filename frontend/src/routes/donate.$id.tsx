@@ -30,13 +30,15 @@ const inputBase: React.CSSProperties = {
 };
 
 function DonatePage() {
-  const { ready } = useAuthGuard();
+  const { ready, user } = useAuthGuard();
   const { id } = Route.useParams();
   const c = getCampaign(id);
   const [amount, setAmount] = useState("");
   const [method, setMethod] = useState<"local" | "international">("local");
   const [confirming, setConfirming] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   if (!ready) return null;
   if (!c) {
@@ -62,6 +64,37 @@ function DonatePage() {
     navigator.clipboard.writeText(c.wallet);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleConfirmDonation = async () => {
+    if (!amount || Number(amount) < 1) {
+      setError("Please enter a valid amount");
+      return;
+    }
+    setError("");
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost:3001/api/transactions/initiate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          campaignId: c.id,
+          amountNgn: Number(amount),
+          email: user?.email || "donor@trace.com",
+          donorName: user?.username || "Anonymous",
+        }),
+      });
+      const data = await res.json();
+      if (data.success && data.data?.checkoutUrl) {
+        window.location.href = data.data.checkoutUrl;
+      } else {
+        setError(data.error || "Payment initiation failed");
+      }
+    } catch (err) {
+      setError("Could not connect to payment server");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -252,8 +285,15 @@ function DonatePage() {
                 <Row label="Campaign" value={c.name} />
                 <Row label="Method" value={method === "local" ? "Local Transfer" : "International (Crypto)"} />
               </div>
-              <PrimaryButton style={{ width: "100%", padding: "12px", fontSize: 13 }}>
-                Confirm Donation
+              {error && (
+                <div style={{ color: "#EF4444", fontSize: 12, marginBottom: 12 }}>{error}</div>
+              )}
+              <PrimaryButton
+                style={{ width: "100%", padding: "12px", fontSize: 13 }}
+                disabled={loading}
+                onClick={handleConfirmDonation}
+              >
+                {loading ? "Processing..." : "Confirm Donation"}
               </PrimaryButton>
             </GlassCard>
           )}

@@ -5,7 +5,7 @@ export type CampaignStatus = "Active" | "Completed" | "Flagged";
 export type CampaignTransaction = {
   id: string;
   label: string;
-  amount: number; // negative = withdrawal/refund out
+  amount: number;
   trust: TrustLevel;
   date?: string;
   verified?: boolean;
@@ -28,7 +28,6 @@ export type Campaign = {
   transactions: CampaignTransaction[];
 };
 
-// Deterministic pseudo-random hex id from string
 function txId(seed: string, i: number) {
   let h = 2166136261;
   const s = `${seed}-${i}`;
@@ -47,7 +46,7 @@ function withIds(seed: string, txs: Omit<CampaignTransaction, "id" | "verified">
 
 export const campaigns: Campaign[] = [
   {
-    id: "baddy-lasu-first",
+    id: "fb5799e5-3d2b-4231-b5d7-15694fdcaac6",
     name: "Baddy of LASU — First Surgery Fund",
     org: "CrowdCare NG",
     goal: 20_000_000,
@@ -71,7 +70,7 @@ export const campaigns: Campaign[] = [
     ]),
   },
   {
-    id: "baddy-lasu-second",
+    id: "0836ab30-0949-4b23-bda0-2f084fb84caa",
     name: "Baddy of LASU — Second Leg Surgery",
     org: "CrowdCare NG",
     goal: 19_000_000,
@@ -95,7 +94,7 @@ export const campaigns: Campaign[] = [
     ]),
   },
   {
-    id: "aunty-esther",
+    id: "97c85343-81da-4233-8d67-e92479f330f5",
     name: "Aunty Esther Medical Fund",
     org: "Public Trust Initiative",
     goal: 2_000_000,
@@ -119,7 +118,7 @@ export const campaigns: Campaign[] = [
     ]),
   },
   {
-    id: "osimhen-jersey",
+    id: "408f966e-e8d8-4ac7-978b-954380b6677c",
     name: "Osimhen Jersey Giveaway Fund",
     org: "Abazz Giveaways",
     goal: 300_000,
@@ -142,7 +141,7 @@ export const campaigns: Campaign[] = [
     ]),
   },
   {
-    id: "hydonni-rebuild",
+    id: "e2b58546-f746-43f9-9c50-c8938100fca3",
     name: "Hy'Donni Rebuild Fund",
     org: "Independent",
     goal: 1_000_000,
